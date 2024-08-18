@@ -9,7 +9,6 @@ function App() {
       <div className="app-container">
         <Nav />
         <Routes>
-          <Route path="/home" element={"home"} />
           <Route path="/news" element={"<News />"} />
           <Route path="/contact" element={"<Contact />"} />
           <Route path="/about" element={"<About />"} />
