@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 
 function Login(props) {
+  const navigate = useNavigate();
+  const handleCreateNewAccount = () => {
+    navigate("/register")
+  };
+  
   return (
     <div className="login-container">
       <div className="container">
@@ -13,7 +18,7 @@ function Login(props) {
             </div>
           </div>
           <div className="content-right col-sm-5 col-12 d-flex flex-column gap-3 py-3 px-3">
-          <div className="brand d-sm-none d-block">HVD75</div>
+            <div className="brand d-sm-none d-block">HVD75</div>
             <input
               type="text"
               className="form-control"
@@ -25,10 +30,19 @@ function Login(props) {
               placeholder="Password"
             />
             <button className="btn btn-primary">Login</button>
-            <span className="text-center"><Link to={"/test"} className="forgot-password">Forgot your password?</Link></span>
+            <span className="text-center">
+              <Link to={"/test"} className="forgot-password">
+                Forgot your password?
+              </Link>
+            </span>
             <hr />
             <div className="text-center">
-              <button className="btn btn-success">Create new account</button>
+              <button
+                className="btn btn-success"
+                onClick={handleCreateNewAccount}
+              >
+                Create new account
+              </button>
             </div>
           </div>
         </div>
