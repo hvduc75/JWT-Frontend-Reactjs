@@ -1,12 +1,55 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import "./Login.scss";
+import {loginUser} from "../../services/userService"
 
 function Login(props) {
   const navigate = useNavigate();
-  const handleCreateNewAccount = () => {
-    navigate("/register")
+
+  const [valueLogin, setValueLogin] = useState("");
+  const [password, setPassword] = useState("");
+
+  const defaultObjValidInput = {
+    isValidValueLogin: true,
+    isValidPassword: true,
   };
-  
+  const [objValidInput, setObjValidInput] = useState(defaultObjValidInput);
+
+  const handleCreateNewAccount = () => {
+    navigate("/register");
+  };
+
+  const handleLogin = async () => {
+    setObjValidInput(defaultObjValidInput);
+
+    if (!valueLogin) {
+      toast.error("Please enter your email address or phone number");
+      setObjValidInput({...defaultObjValidInput, isValidValueLogin : false})
+      return;
+    }
+    if (!password) {
+      toast.error("Please enter your password");
+      setObjValidInput({...defaultObjValidInput, isValidPassword : false})
+      return;
+    }
+    let response = await loginUser(valueLogin, password);
+    if(response && response.data && +response.data.EC === 0) {
+      // success
+      let data = {
+        isAuthenticated: true,
+        token: 'fake token'
+      }
+      sessionStorage.setItem('account',JSON.stringify(data))
+      navigate("/users")
+    }
+
+    if(response && response.data && +response.data.EC !== 0) {
+      // error
+      toast.error(response.data.EM)
+    }
+  };
+
   return (
     <div className="login-container">
       <div className="container">
@@ -21,15 +64,33 @@ function Login(props) {
             <div className="brand d-sm-none d-block">HVD75</div>
             <input
               type="text"
-              className="form-control"
+              className={
+                objValidInput.isValidValueLogin
+                  ? "form-control"
+                  : "form-control is-invalid"
+              }
               placeholder="Email address or phone number"
+              value={valueLogin}
+              onChange={(e) => {
+                setValueLogin(e.target.value);
+              }}
             />
             <input
-              type="text"
-              className="form-control"
+              type="password"
+              className={
+                objValidInput.isValidPassword
+                  ? "form-control"
+                  : "form-control is-invalid"
+              }
               placeholder="Password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
-            <button className="btn btn-primary">Login</button>
+            <button className="btn btn-primary" onClick={() => handleLogin()}>
+              Login
+            </button>
             <span className="text-center">
               <Link to={"/test"} className="forgot-password">
                 Forgot your password?
