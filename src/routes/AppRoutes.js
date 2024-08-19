@@ -12,7 +12,7 @@ function AppRoutes(props) {
             <Route path="/" element={"home"} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="*" element={"404 not found"} />
+            {/* <Route path="*" element={"404 not found"} /> */}
           </Routes>
           <PrivateRoutes path="/users" component={<Users />}/>
         </div>
