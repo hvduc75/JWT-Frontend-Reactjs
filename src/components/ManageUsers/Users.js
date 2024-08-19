@@ -9,6 +9,7 @@ function Users(props) {
     let session = sessionStorage.getItem("account");
     if (!session) {
       navigate("/login");
+      window.location.reload();
     }
   }, []);
 

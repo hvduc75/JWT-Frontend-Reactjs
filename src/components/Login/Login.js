@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./Login.scss";
-import {loginUser} from "../../services/userService"
+import { loginUser } from "../../services/userService";
 
 function Login(props) {
   const navigate = useNavigate();
@@ -25,31 +25,46 @@ function Login(props) {
 
     if (!valueLogin) {
       toast.error("Please enter your email address or phone number");
-      setObjValidInput({...defaultObjValidInput, isValidValueLogin : false})
+      setObjValidInput({ ...defaultObjValidInput, isValidValueLogin: false });
       return;
     }
     if (!password) {
       toast.error("Please enter your password");
-      setObjValidInput({...defaultObjValidInput, isValidPassword : false})
+      setObjValidInput({ ...defaultObjValidInput, isValidPassword: false });
       return;
     }
     let response = await loginUser(valueLogin, password);
-    if(response && response.data && +response.data.EC === 0) {
+    if (response && response.data && +response.data.EC === 0) {
       // success
       let data = {
         isAuthenticated: true,
-        token: 'fake token'
-      }
-      sessionStorage.setItem('account',JSON.stringify(data))
-      navigate("/users")
+        token: "fake token",
+      };
+      sessionStorage.setItem("account", JSON.stringify(data));
+      navigate("/users");
+      window.location.reload();
     }
 
-    if(response && response.data && +response.data.EC !== 0) {
+    if (response && response.data && +response.data.EC !== 0) {
       // error
-      toast.error(response.data.EM)
+      toast.error(response.data.EM);
     }
   };
 
+  const handlePressEnter = (event) => {
+    if (event.charCode === 13 && event.code === "Enter") {
+      handleLogin();
+    }
+  };
+
+  useEffect(() => {
+    let session = sessionStorage.getItem("account");
+    if (session) {
+      navigate("/");
+      window.location.reload()
+    }
+  }, []);
+  
   return (
     <div className="login-container">
       <div className="container">
@@ -87,6 +102,7 @@ function Login(props) {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              onKeyPress={(event) => handlePressEnter(event)}
             />
             <button className="btn btn-primary" onClick={() => handleLogin()}>
               Login
