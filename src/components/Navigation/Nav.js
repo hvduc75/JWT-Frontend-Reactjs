@@ -15,7 +15,7 @@ function Nav() {
   return (
     <div>
       {isShow === true && (
-        <div class="topnav">
+        <div className="topnav">
           <Link to="/" exact>
             Home
           </Link>
