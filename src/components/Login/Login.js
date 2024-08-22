@@ -56,7 +56,6 @@ function Login(props) {
       sessionStorage.setItem("account", JSON.stringify(data));
       loginContext(data);
       navigate("/users"); 
-      window.location.reload();
     }
 
     if (response && +response.EC !== 0) {
@@ -75,7 +74,6 @@ function Login(props) {
     let session = sessionStorage.getItem("account");
     if (session) {
       navigate("/");
-      window.location.reload();
     }
   }, []);
 

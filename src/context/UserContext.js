@@ -10,7 +10,10 @@ const UserProvider = ({ children }) => {
   });
 
   const loginContext = (userData) => {
-    setUser(userData);
+    console.log("Before setUser:", user);
+  console.log("New userData:", userData);
+  setUser(userData);
+  console.log("After setUser:", user);
   };
 
   const logout = () => {
