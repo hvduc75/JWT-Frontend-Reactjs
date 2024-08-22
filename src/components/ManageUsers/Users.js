@@ -28,7 +28,7 @@ function Users(props) {
     let session = sessionStorage.getItem("account");
     if (!session) {
       navigate("/login");
-      window.location.reload();
+      // window.location.reload();
     }
   }, []);
 
@@ -82,8 +82,8 @@ function Users(props) {
   };
 
   const handleRefresh = async () => {
-    await fetchUsers()
-  }
+    await fetchUsers();
+  };
 
   return (
     <>
@@ -94,7 +94,12 @@ function Users(props) {
               <h3>Manage Users</h3>
             </div>
             <div className="actions my-3">
-              <button className="btn btn-success refresh" onClick={() => handleRefresh()}><i className="fa fa-refresh"></i>Refresh</button>
+              <button
+                className="btn btn-success refresh"
+                onClick={() => handleRefresh()}
+              >
+                <i className="fa fa-refresh"></i>Refresh
+              </button>
               <button
                 className="btn btn-primary"
                 onClick={() => {
@@ -134,18 +139,18 @@ function Users(props) {
                           <td>{item.Group ? item.Group.name : ""}</td>
                           <td>
                             <span
-                            title="edit"
+                              title="edit"
                               className="edit"
                               onClick={() => handleEditUser(item)}
                             >
                               <i className="fa fa-pencil"></i>
                             </span>
                             <span
-                            title="delete"
+                              title="delete"
                               className="delete"
                               onClick={() => handleDeleteUser(item)}
                             >
-                             <i className="fa fa-trash-o"></i>
+                              <i className="fa fa-trash-o"></i>
                             </span>
                           </td>
                         </tr>

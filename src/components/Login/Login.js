@@ -1,11 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { toast } from "react-toastify";
 import "./Login.scss";
 import { loginUser } from "../../services/userService";
+import { UserContext } from "../../context/UserContext";
 
 function Login(props) {
   const navigate = useNavigate();
+  const { loginContext } = useContext(UserContext);
 
   const [valueLogin, setValueLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -36,12 +38,24 @@ function Login(props) {
     let response = await loginUser(valueLogin, password);
     if (response && +response.EC === 0) {
       // success
+      let groupWithRoles = response.DT.groupWithRoles;
+      let email = response.DT.email;
+      let username = response.DT.username;
+      let token = response.DT.access_token;
+
       let data = {
         isAuthenticated: true,
-        token: "fake token",
+        token,
+        account: {
+          groupWithRoles,
+          email,
+          username,
+        },
       };
+
       sessionStorage.setItem("account", JSON.stringify(data));
-      navigate("/users");
+      loginContext(data);
+      navigate("/users"); 
       window.location.reload();
     }
 
@@ -61,10 +75,10 @@ function Login(props) {
     let session = sessionStorage.getItem("account");
     if (session) {
       navigate("/");
-      window.location.reload()
+      window.location.reload();
     }
   }, []);
-  
+
   return (
     <div className="login-container">
       <div className="container">
