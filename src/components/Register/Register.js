@@ -66,8 +66,7 @@ function Register(props) {
     let check = isValidInputs();
     let userData = { email, phone, username, password };
     if (check === true) {
-      let response = await registerNewUser(userData);
-      let serverData = response.data;
+      let serverData = await registerNewUser(userData);
       if (+serverData.EC === 0) {
         toast.success(serverData.EM);
         navigate("/login");
