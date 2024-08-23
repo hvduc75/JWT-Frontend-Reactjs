@@ -4,14 +4,17 @@ import { getUserAccount } from "../services/userService";
 const UserContext = React.createContext(null);
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({
+  const userDefault = {
+    isLoading: true,
     isAuthenticated: false,
     token: "",
     account: {},
-  });
+  };
+
+  const [user, setUser] = useState(userDefault);
 
   const loginContext = (userData) => {
-    setUser(userData);
+    setUser({ ...userData, isLoading: false });
   };
 
   const logout = () => {
@@ -37,13 +40,23 @@ const UserProvider = ({ children }) => {
           email,
           username,
         },
+        isLoading: false,
       };
-      setUser(data);
+      setTimeout(() => {
+        setUser(data);
+      }, 500);
+    } else {
+      setUser({ ...userDefault, isLoading: false });
     }
   };
 
   useEffect(() => {
-    fetchUser();
+    if (
+      window.location.pathname !== "/" ||
+      window.location.pathname !== "/login"
+    ) {
+      fetchUser();
+    }
   }, []);
 
   return (
