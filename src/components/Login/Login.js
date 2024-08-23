@@ -52,8 +52,9 @@ function Login(props) {
           username,
         },
       };
+      localStorage.setItem("jwt", token);
       loginContext(data);
-      navigate("/users"); 
+      navigate("/users");
     }
 
     if (response && +response.EC !== 0) {
