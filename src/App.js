@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.scss";
-import Nav from "./components/Navigation/Nav";
+import NavHeader from "./components/Navigation/Nav";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Fragment, useContext } from "react";
@@ -27,7 +27,7 @@ function App() {
         ) : (
           <>
             <div className="app-header">
-              <Nav />
+              <NavHeader />
             </div>
             <div className="app-container">
               <AppRoutes />

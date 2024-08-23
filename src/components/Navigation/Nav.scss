@@ -1,23 +1,43 @@
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-
-  a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
+.nav-header {
+  .bg-header {
+    background-color: #20232a;
   }
 
-  a:hover {
-    background-color: #ddd;
-    color: black;
+  .brand-name {
+    margin-left: 10px;
+    font-size: 20px;
+    color: #61dafb !important
   }
 
-  a.active {
-    background-color: #04AA6D;
-    color: white;
+  img {
+    animation: App-logo-spin infinite 20s linear;
+  }
+
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    } to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .navbar-nav {
+    a, .nav-link{
+      color: white !important;
+  
+      &:hover {
+        color: #61dafb !important;
+      }
+    }
+  }
+  .nav-link {
+    &.active {
+      color: #61dafb !important;
+    }
+  }
+  .dropdown-menu {
+    a {
+      color: #212529 !important;
+    }
   }
 }
