@@ -4,6 +4,7 @@ import Register from "../components/Register/Register";
 import Users from "../components/ManageUsers/Users";
 import { Routes, Route } from "react-router-dom";
 import PrivateRoutes from './PrivateRoutes';
+import Role from '../components/Role/Role';
 
 function AppRoutes(props) {
     return (
@@ -15,6 +16,7 @@ function AppRoutes(props) {
             {/* <Route path="*" element={"404 not found"} /> */}
           </Routes>
           <PrivateRoutes path="/users" component={<Users />}/>
+          <PrivateRoutes path="/roles" component={<Role />}/>
         </div>
     );
 }
