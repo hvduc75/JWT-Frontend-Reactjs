@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.scss";
-import NavHeader from "./components/Navigation/Nav";
+import NavHeader from "./components/Navigation/NavHeader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Fragment, useContext } from "react";

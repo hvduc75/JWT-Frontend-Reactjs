@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext";
 
 function PrivateRoutes(props) {
   const { user } = useContext(UserContext);
-  if (user && user.isAuthenticated === true) {
+  if (user && user.isAuthenticated === true ) {
     return (
       <Routes>
         <Route path={props.path} element={props.component} />
