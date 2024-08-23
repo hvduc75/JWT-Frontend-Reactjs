@@ -17,7 +17,7 @@ function Nav() {
       </div>
     );
   } else {
-    return;
+    return <></>;
   }
 }
 

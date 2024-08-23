@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./Users.scss";
 import { fetchAllUser, deleteUser } from "../../services/userService";
 import ReactPaginate from "react-paginate";
@@ -21,16 +20,6 @@ function Users(props) {
   const [isShowModalUser, setIsShowModalUser] = useState(false);
   const [actionModalUser, setActionModalUser] = useState("CREATE");
   const [dataModalUser, setDataModalUser] = useState({});
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    let session = sessionStorage.getItem("account");
-    if (!session) {
-      navigate("/login");
-      // window.location.reload();
-    }
-  }, []);
 
   useEffect(() => {
     fetchUsers();

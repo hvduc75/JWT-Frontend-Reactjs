@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { toast } from "react-toastify";
 import "./Login.scss";
 import { loginUser } from "../../services/userService";
@@ -52,8 +52,6 @@ function Login(props) {
           username,
         },
       };
-
-      sessionStorage.setItem("account", JSON.stringify(data));
       loginContext(data);
       navigate("/users"); 
     }
@@ -69,13 +67,6 @@ function Login(props) {
       handleLogin();
     }
   };
-
-  useEffect(() => {
-    let session = sessionStorage.getItem("account");
-    if (session) {
-      navigate("/");
-    }
-  }, []);
 
   return (
     <div className="login-container">
