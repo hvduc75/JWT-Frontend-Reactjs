@@ -16,4 +16,17 @@
             color: red;
         }
     }
+
+    .table-role {
+        .edit {
+            color: orange;
+            cursor: pointer;
+            padding-right: 10px;
+        }
+
+        .delete {
+            color: red;
+            cursor: pointer;
+        }
+    }
 }
