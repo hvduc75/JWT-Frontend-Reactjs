@@ -12,4 +12,8 @@ const deleteRole = (roles) => {
   return axios.delete("api/v1/role/delete", { data: { id: roles.id } });
 };
 
-export { createRole, fetchAllRole, deleteRole };
+const fetchRolesByGroup = (groupId) => {
+  return axios.get(`api/v1/role/by-group${groupId}`);
+};
+
+export { createRole, fetchAllRole, deleteRole, fetchRolesByGroup };

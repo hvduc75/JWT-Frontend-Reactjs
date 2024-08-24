@@ -5,6 +5,7 @@ import Users from "../components/ManageUsers/Users";
 import { Routes, Route } from "react-router-dom";
 import PrivateRoutes from './PrivateRoutes';
 import Role from '../components/Role/Role';
+import GroupRole from '../components/GroupRole/GroupRole';
 
 function AppRoutes(props) {
     return (
@@ -17,6 +18,7 @@ function AppRoutes(props) {
           </Routes>
           <PrivateRoutes path="/users" component={<Users />}/>
           <PrivateRoutes path="/roles" component={<Role />}/>
+          <PrivateRoutes path="/group-role" component={<GroupRole />}/>
         </div>
     );
 }
