@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./GroupRole.scss";
 import { fetchGroup } from "../../services/userService";
 import { toast } from "react-toastify";
-import { fetchAllRole, fetchRolesByGroup } from "../../services/roleService";
+import {
+  fetchAllRole,
+  fetchRolesByGroup,
+  assignRoleToGroup,
+} from "../../services/roleService";
 import _ from "lodash";
 
 function GroupRole(props) {
@@ -75,6 +79,29 @@ function GroupRole(props) {
     setAssignRoleByGroup(_assignRoleByGroup);
   };
 
+  const buildDataToSave = () => {
+    let result = {};
+    const _assignRoleByGroup = _.cloneDeep(assignRoleByGroup);
+    result.groupId = selectGroup;
+    let groupRoles = _assignRoleByGroup.filter(
+      (item) => item.isAssigned === true
+    );
+    let finalGroupRoles = groupRoles.map((item) => {
+      let data = { groupId: +selectGroup, roleId: +item.id };
+      return data;
+    });
+    result.groupRoles = finalGroupRoles;
+    return result;
+  };
+
+  const handleSave = async () => {
+    let data = buildDataToSave();
+    let res = await assignRoleToGroup(data);
+    if (res && res.EC === 0) {
+      toast.success(res.EM);
+    }
+  };
+
   return (
     <div className="group-role-container">
       <div className="container">
@@ -133,7 +160,9 @@ function GroupRole(props) {
               </div>
             )}
             <div className="mt-3">
-              <button className="btn btn-warning">Save</button>
+              <button className="btn btn-warning" onClick={() => handleSave()}>
+                Save
+              </button>
             </div>
           </div>
         </div>

@@ -10,9 +10,11 @@ function PrivateRoutes(props) {
         <Route path={props.path} element={props.component} />
       </Routes>
     );
-  } else {
-    return <Navigate to="/login" />;
   }
+  // khong hieu cho nay lam 
+  //  else {
+  //   return <Navigate to="/login" />;
+  // }
 }
 
 export default PrivateRoutes;
